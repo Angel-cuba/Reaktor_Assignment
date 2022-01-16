@@ -4,13 +4,6 @@ import { useStyles } from './styles';
 const Games = ({ play }) => {
 	const classes = useStyles();
 
-	const sortedANames = play.playerA.name;
-	const sortedBNames = play.playerB.name;
-	// const sortedGames = sortedANames.push(sortedBNames);
-	// sortedGames = [sortedANames, sortedBNames].sort();
-	// 	console.log(sortedGames);
-	// console.log([sortedANames].sort());
-
 	return (
 		<div className={classes.container}>
 			<div className={classes.names}>
