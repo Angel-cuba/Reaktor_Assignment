@@ -17,16 +17,20 @@ const Results = () => {
 	const results = async () => {
 		const response = await fetch('https://bad-api-assignment.reaktor.com/rps/history');
 		const data = await response.json();
-
+		console.log(data);
 		setAllData(data.data);
 	};
 	const openModal = () => {
 		setOpen(!open);
-		openHistory && setOpenHistory(false);
+		if (openHistory) {
+			setOpenHistory(false);
+		}
 	};
 	const openModalHistory = () => {
 		setOpenHistory(!openHistory);
-		open && setOpen(false);
+		if (open) {
+			setOpen(false);
+		}
 	};
 
 	return (
