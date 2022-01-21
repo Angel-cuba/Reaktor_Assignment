@@ -35,4 +35,9 @@ export const useStyles = makeStyles({
 		color: '#ffffff',
 		cursor: 'pointer',
 	},
+	th: {
+		border: '1px solid #999',
+		padding: 'o.5rem',
+		textAlign: 'center',
+	},
 });
