@@ -40,4 +40,24 @@ export const useStyles = makeStyles({
 		padding: 'o.5rem',
 		textAlign: 'center',
 	},
+	thTotal: {
+		border: '1px solid #999',
+		padding: 'o.5rem',
+		textAlign: 'center',
+		display: 'flex',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+	},
+	clickTotal: {
+		backgroundColor: 'rgba(0,0,0,0.024125)',
+		padding: '10px 5px',
+		width: 'fit-content',
+		borderRadius: '5px',
+		'&:hover': {
+			cursor: 'pointer',
+			backgroundColor: 'silver',
+			color: 'white',
+			fontWeight: 'bold',
+		},
+	},
 });
