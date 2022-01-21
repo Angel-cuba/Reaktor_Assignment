@@ -38,9 +38,7 @@ const History = ({ allData }) => {
 		AmountList();
 		testing();
 	}, []);
-	// useLayoutEffect(() => {
-	// 	playersWon && console.log(playersWon);
-	// }, []);
+
 	//Cantidad de veces en que aparece
 	const AmountList = () => {
 		fullListNames.reduce((acc, item) => {
@@ -113,10 +111,13 @@ const History = ({ allData }) => {
 				}
 
 				//empate
-				// if (allData[a].playerA.played === allData[b].playerB.played) {
-				// 	// return;
-				// 	console.log('ha sido empate');
-				// }
+				if (
+					allData[a].playerA.played === allData[b].playerB.played ||
+					allData[b].playerB.played === allData[a].playerA.played
+				) {
+					// return;
+					console.log('ha sido empate');
+				}
 				//De B vs A (piedra gana a tijera)
 				if (allData[a].playerA.played === 'SCISSORS' && allData[b].playerB.played === 'ROCK') {
 					setPlayersWon([
