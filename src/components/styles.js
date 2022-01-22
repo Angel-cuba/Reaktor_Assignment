@@ -37,8 +37,25 @@ export const useStyles = makeStyles({
 	},
 	th: {
 		border: '1px solid #999',
-		padding: 'o.5rem',
+		padding: '0.8rem',
 		textAlign: 'center',
+		backgroundColor: 'rgba(0,0,0,.2)',
+	},
+	tb: {
+		border: '1px solid #999',
+		padding: 'o.5rem 0.8rem',
+		textAlign: 'center',
+	},
+	tbClicks: {
+		backgroundColor: 'rgba(0,0,0,0.05)',
+		width: 'fit-content',
+		textAlign: 'center',
+		padding: '0.2rem',
+		borderRadius: '5px',
+		'&:hover': {
+			cursor: 'pointer',
+			backgroundColor: 'rgba(0,0,0,0.07)',
+		},
 	},
 	thTotal: {
 		border: '1px solid #999',

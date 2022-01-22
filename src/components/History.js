@@ -3,21 +3,23 @@ import { useStyles } from './styles';
 
 const History = ({ allData }) => {
 	const classes = useStyles();
-	console.log('all my data', allData);
+	// console.log('all my data', allData);
 	const [listA, setListA] = useState([]);
 	const [listB, setListB] = useState([]);
 	// console.log('lista A', listA);
 	// console.log('lista B', listB);
 	const [amount, setAmount] = useState();
 	const [amountLength, setAmountLength] = useState([]);
+	const [selections, setSelections] = useState([]);
 	//console.log(amount);
 	// console.log('final-----', amountLength);
 
 	const [playersWon, setPlayersWon] = useState([]);
 	console.log(playersWon);
+	console.log('selections' + selections);
 
 	const [fullArray, setFullArray] = useState([]);
-	console.log(fullArray);
+	// console.log(fullArray);
 
 	useEffect(() => {
 		myArrayA();
@@ -36,7 +38,8 @@ const History = ({ allData }) => {
 
 	useLayoutEffect(() => {
 		AmountList();
-		testing();
+		setLengthValue();
+		playsWon();
 	}, []);
 
 	//Cantidad de veces en que aparece
@@ -64,6 +67,7 @@ const History = ({ allData }) => {
 		for (j; j < allData.map((value) => value.playerB).length; j++)
 			return setListB([...listB, ...allData.map((value) => value.playerB)]);
 	};
+	//Running all players to find winners
 	const playsWon = () => {
 		let a = 0;
 		let b = 0;
@@ -155,10 +159,11 @@ const History = ({ allData }) => {
 				}
 			}
 		}
+		console.log(insideArray);
 	};
 
 	//Cheque la cantidad de veces que ha judgado
-	const testing = (value) => {
+	const setLengthValue = (value) => {
 		let arr = [];
 		for (let a in amount) {
 			for (let i = 0; i < amount.length; i++) {
@@ -177,61 +182,94 @@ const History = ({ allData }) => {
 		}
 	};
 
+	const lastSelection = (value) => {
+		let arr = [];
+		let rock = [];
+		let scissors = [];
+		let paper = [];
+
+		// for(let a in playersWon){
+		// for (let i = 0; i < playersWon.length; i++) {
+		let count = 0;
+		while (count < playersWon.length) {
+			if (playersWon[count].name === value) {
+				console.log(playersWon[count]);
+				arr.push([...selections, playersWon[count].name, playersWon[count] && playersWon[count]]);
+				playersWon[count].played === 'ROCK' &&
+					rock.push([...rock, playersWon[count] && playersWon[count].played]);
+				playersWon[count].played === 'SCISSORS' &&
+					scissors.push([...scissors, playersWon[count] && playersWon[count].played]);
+				playersWon[count].played === 'PAPER' &&
+					paper.push([...paper, playersWon[count] && playersWon[count].played]);
+			}
+			count++;
+		}
+		console.log(arr);
+		setSelections([arr]);
+		console.log(rock);
+		console.log(scissors);
+		console.log(paper);
+		// let smallest = [rock]
+		let max = Math.max(rock.length, scissors.length, paper.length);
+		console.log('max = ' + max);
+
+		arr.length === 0
+			? alert('Has won ' + arr.length + ' games.')
+			: alert(
+					'Has won ' +
+						arr.length +
+						' games. And the most played hand was ' +
+						(rock?.length > scissors?.length > paper?.length && 'ROCK') ||
+						(scissors?.length > paper?.length > rock?.length && 'SCISSORS') ||
+						(paper?.length > rock?.length > scissors?.length && 'PAPER')
+			  );
+
+		setSelections([]);
+		return arr;
+		// }
+		//}
+	};
+
 	return (
 		<>
 			<div style={{ position: 'relative', width: '100%', height: '100%' }}>
-				<div onClick={() => playsWon()}>Click here to</div>
-				<div>
-					<table style={{ borderSpacing: '1px' }}>
-						<thead>
-							<tr>
-								<th className={classes.th}>Name</th>
-								<th className={classes.th}>Plays won</th>
-								<th className={classes.th}>Played</th>
-								<th className={classes.th}>Total of games played</th>
-							</tr>
-						</thead>
-						<tbody>
-							{/*{amount.map((p, i) => ( */}
+				<table style={{ borderSpacing: '1px' }}>
+					<thead>
+						<tr>
+							<th className={classes.th}>Name</th>
+							<th className={classes.th}>Plays won</th>
+							<th className={classes.th}>Last played</th>
+							<th className={classes.th}>Total of games played</th>
+						</tr>
+					</thead>
+					<tbody>
+						{/*{amount.map((p, i) => ( */}
 
-							{fullArray.map((p, i) => (
-								<tr key={i}>
-									<td>
-										{/* {p.playerA.played === 'ROCK' && p.playerB.played === 'SCISSORS' && '🏆'} */}
-										<span
-										// style={{
-										// 	backgroundColor:
-										// 		p.playerA.played === 'ROCK' && p.playerB.played === 'SCISSORS'
-										// 			? 'green'
-										// 			: '#d3d3d3',
-										// 	padding: '1.4px 4px',
-										// 	borderRadius: '2.5px',
-										// 	marginLeft: '4px',
-										// }}
-										>
-											{/* {p.playerA.name} */}
-											{p.name}
-										</span>
-									</td>
-									<td className={classes.th}></td>
-									<td className={classes.th}>
-										{/* {p.playerA.played === 'ROCK' &&
+						{fullArray.map((p, i) => (
+							<tr key={i}>
+								<td>{p.name}</td>
+								<td className={classes.tb}>
+									<div className={classes.tbClicks} onClick={() => lastSelection(p.name)}>
+										Last
+									</div>
+								</td>
+								<td className={classes.tb}>
+									{/* {p.playerA.played === 'ROCK' &&
 										p.playerB.played === 'SCISSORS' &&
 										'Has won with ROCK'} */}
-										{p.played}
-									</td>
-									{/* amount && returnValues(p.playerA.name) */}
-									<td className={classes.thTotal}>
-										<div className={classes.clickTotal} onClick={() => testing(p.name)}>
-											Click to know...
-										</div>
-										<span>{p.name === amountLength[0] ? amountLength[1] : ''}</span>
-									</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
+									{p.played}
+								</td>
+								{/* amount && returnValues(p.playerA.name) */}
+								<td className={classes.thTotal}>
+									<div className={classes.clickTotal} onClick={() => setLengthValue(p.name)}>
+										Click to know...
+									</div>
+									<span>{p.name === amountLength[0] ? amountLength[1] : ''}</span>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</div>
 		</>
 	);
