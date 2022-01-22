@@ -3,24 +3,18 @@ import { useStyles } from './styles';
 
 const History = ({ allData }) => {
 	const classes = useStyles();
-	// console.log('all my data', allData);
+
 	const [listA, setListA] = useState([]);
 	const [listB, setListB] = useState([]);
-	// console.log('lista A', listA);
-	// console.log('lista B', listB);
-	const [amount, setAmount] = useState();
-	const [amountLength, setAmountLength] = useState([]);
-	const [selections, setSelections] = useState([]);
-	//console.log(amount);
-	// console.log('final-----', amountLength);
 
+	const [amount, setAmount] = useState();
+	console.log(amount);
+	const [amountLength, setAmountLength] = useState([]);
 	const [playersWon, setPlayersWon] = useState([]);
 	console.log(playersWon);
-	console.log('selections' + selections);
 
 	const [fullArray, setFullArray] = useState([]);
-	// console.log(fullArray);
-
+	console.log(fullArray);
 	useEffect(() => {
 		myArrayA();
 		myArrayB();
@@ -36,10 +30,17 @@ const History = ({ allData }) => {
 		...allData.map((value) => value.playerB.name),
 	];
 
+	const fullArrayNamesAndPlays = [
+		...allData.map((value) => value.playerA),
+		...allData.map((value) => value.playerB),
+	];
+	console.log(fullArrayNamesAndPlays);
+
 	useLayoutEffect(() => {
 		AmountList();
 		setLengthValue();
 		playsWon();
+		// AmountOfPlays();
 	}, []);
 
 	//Cantidad de veces en que aparece
@@ -48,6 +49,7 @@ const History = ({ allData }) => {
 			if (!acc[item]) {
 				acc[item] = [];
 			}
+			// console.log(item);
 			acc[item].push(item);
 			// acc[item] = acc[item] + 1 || 1;
 			setAmount(acc);
@@ -159,7 +161,7 @@ const History = ({ allData }) => {
 				}
 			}
 		}
-		console.log(insideArray);
+		return insideArray;
 	};
 
 	//Cheque la cantidad de veces que ha judgado
@@ -172,63 +174,46 @@ const History = ({ allData }) => {
 				}
 			}
 			amount[value] && setAmountLength([value, amount[value].length]);
-			// alert(
-			// 	value +
-			// 		' has played ' +
-			// 		amount[value].length +
-			// 		(amount[value].length === 1 ? ' time' : ' times')
-			//);
 			return;
 		}
 	};
 
 	const lastSelection = (value) => {
 		let arr = [];
-		let rock = [];
-		let scissors = [];
-		let paper = [];
-
-		// for(let a in playersWon){
-		// for (let i = 0; i < playersWon.length; i++) {
 		let count = 0;
-		while (count < playersWon.length) {
+
+		for (count; count < playersWon.length; count++) {
 			if (playersWon[count].name === value) {
 				console.log(playersWon[count]);
-				arr.push([...selections, playersWon[count].name, playersWon[count] && playersWon[count]]);
-				playersWon[count].played === 'ROCK' &&
-					rock.push([...rock, playersWon[count] && playersWon[count].played]);
-				playersWon[count].played === 'SCISSORS' &&
-					scissors.push([...scissors, playersWon[count] && playersWon[count].played]);
-				playersWon[count].played === 'PAPER' &&
-					paper.push([...paper, playersWon[count] && playersWon[count].played]);
+				// arr.push([...selections, playersWon[count].name, playersWon[count] && playersWon[count]]);
+				if (playersWon[count].played === 'ROCK') {
+					arr.push([
+						...arr,
+						playersWon[count].name,
+						playersWon[count].played !== 'undefined' && playersWon[count].played,
+					]);
+				}
+				if (playersWon[count].played === 'SCISSORS') {
+					arr.push([
+						...arr,
+						playersWon[count].name,
+						playersWon[count].played !== 'undefined' && playersWon[count].played,
+					]);
+				}
+				if (playersWon[count].played === 'PAPER') {
+					arr.push([
+						...arr,
+						playersWon[count].name,
+						playersWon[count].played !== 'undefined' && playersWon[count].played,
+					]);
+				}
 			}
-			count++;
 		}
-		console.log(arr);
-		// console.log('---' + arr.length && arr[0][1].played);
-		setSelections([arr]);
-		console.log(rock.length);
-		console.log(scissors.length);
-		console.log(paper.length);
-		// let smallest = [rock]
-		let max = Math.max(rock.length, scissors.length, paper.length);
-		console.log('max = ' + max);
-
+		// console.log(arr);
 		arr && arr.length
-			? alert('Has won ' + arr.length + ' games. And the most played hand is ' + arr[0][1].played)
-			: alert('Nothing to show for this guy.');
-		// arr.length === 'undefined' && alert('There no wins for this guy.');
-
-		// arr.length > 0 &&
-		// 	alert(
-		// 		'Has won ' + arr.length + ' games. And the most played hand was ' + arr.length !==
-		// 			'undefined' && arr[0][1].played
-		// 	);
-
-		setSelections([]);
+			? alert('Has won ' + arr.length + ' games. And the most played hand is ' + arr[0][1])
+			: alert('No victories. Nothing to show for this player.');
 		return arr;
-		// }
-		//}
 	};
 
 	return (
@@ -238,29 +223,21 @@ const History = ({ allData }) => {
 					<thead>
 						<tr>
 							<th className={classes.th}>Name</th>
-							<th className={classes.th}>Plays won</th>
+							<th className={classes.th}>Plays won and play type</th>
 							<th className={classes.th}>Last played</th>
 							<th className={classes.th}>Total of games played</th>
 						</tr>
 					</thead>
 					<tbody>
-						{/*{amount.map((p, i) => ( */}
-
 						{fullArray.map((p, i) => (
 							<tr key={i}>
 								<td>{p.name}</td>
-								<td className={classes.tb}>
-									<div className={classes.tbClicks} onClick={() => lastSelection(p.name)}>
-										Last
+								<td className={classes.tdClickMe}>
+									<div className={classes.tdClicks} onClick={() => lastSelection(p.name)}>
+										Click me...!
 									</div>
 								</td>
-								<td className={classes.tb}>
-									{/* {p.playerA.played === 'ROCK' &&
-										p.playerB.played === 'SCISSORS' &&
-										'Has won with ROCK'} */}
-									{p.played}
-								</td>
-								{/* amount && returnValues(p.playerA.name) */}
+								<td className={classes.td}>{p.played}</td>
 								<td className={classes.thTotal}>
 									<div className={classes.clickTotal} onClick={() => setLengthValue(p.name)}>
 										Click to know...

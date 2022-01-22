@@ -59,20 +59,24 @@ export const useStyles = makeStyles({
 		textAlign: 'center',
 		backgroundColor: 'rgba(0,0,0,.2)',
 	},
-	tb: {
+	td: {
 		border: '1px solid #999',
 		padding: 'o.5rem 0.8rem',
-		textAlign: 'center',
 	},
-	tbClicks: {
-		backgroundColor: 'rgba(0,0,0,0.05)',
+	tdClickMe: {
+		border: '1px solid #999',
+	},
+	tdClicks: {
+		backgroundColor: 'rgba(0,0,0,0.035)',
 		width: 'fit-content',
 		textAlign: 'center',
 		padding: '0.2rem',
+		margin: '0 auto',
 		borderRadius: '5px',
 		'&:hover': {
 			cursor: 'pointer',
 			backgroundColor: 'rgba(0,0,0,0.07)',
+			fontWeight: 'bold',
 		},
 	},
 	thTotal: {
