@@ -8,6 +8,24 @@ export const useStyles = makeStyles({
 		borderRadius: '5px',
 		margin: '.6rem',
 	},
+	names: {
+		display: 'flex',
+	},
+	title: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	line: {
+		backgroundColor: 'rgba(345,44,55)',
+		width: '30px',
+		height: '100%',
+	},
+	results: {},
+	played: {
+		display: 'flex',
+		justifyContent: 'space-around',
+	},
+
 	test: {
 		width: '100%',
 		display: 'flex',

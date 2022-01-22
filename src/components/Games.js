@@ -8,14 +8,22 @@ const Games = ({ play }) => {
 	return (
 		<div className={classes.container}>
 			<div className={classes.names}>
-				<h3>Player A: {play.playerA.name}</h3>
-				<h3>Player B: {play.playerB.name}</h3>
+				<h3 className={classes.title}>
+					<span>Player A: </span>
+					<span>{play.playerA.name}</span>
+				</h3>
+				<div className={classes.line}></div>
+				<h3 className={classes.title}>
+					<span>Player B: </span>
+					<span>{play.playerB.name}</span>
+				</h3>
 			</div>
 			<div className={classes.results}>
-				Played:
-				<div className="">
-					<h2> {play.playerA.played}</h2>
-					<h2> {play.playerB.played}</h2>
+				{play.playerA.played === play.playerB.played ? 'Same played' : 'Played:'}
+
+				<div className={classes.played}>
+					<h2>{play.playerA.played}</h2>
+					<h2>{play.playerB.played}</h2>
 				</div>
 			</div>
 		</div>

@@ -205,24 +205,25 @@ const History = ({ allData }) => {
 			count++;
 		}
 		console.log(arr);
+		// console.log('---' + arr.length && arr[0][1].played);
 		setSelections([arr]);
-		console.log(rock);
-		console.log(scissors);
-		console.log(paper);
+		console.log(rock.length);
+		console.log(scissors.length);
+		console.log(paper.length);
 		// let smallest = [rock]
 		let max = Math.max(rock.length, scissors.length, paper.length);
 		console.log('max = ' + max);
 
-		arr.length === 0
-			? alert('Has won ' + arr.length + ' games.')
-			: alert(
-					'Has won ' +
-						arr.length +
-						' games. And the most played hand was ' +
-						(rock?.length > scissors?.length > paper?.length && 'ROCK') ||
-						(scissors?.length > paper?.length > rock?.length && 'SCISSORS') ||
-						(paper?.length > rock?.length > scissors?.length && 'PAPER')
-			  );
+		arr && arr.length
+			? alert('Has won ' + arr.length + ' games. And the most played hand is ' + arr[0][1].played)
+			: alert('Nothing to show for this guy.');
+		// arr.length === 'undefined' && alert('There no wins for this guy.');
+
+		// arr.length > 0 &&
+		// 	alert(
+		// 		'Has won ' + arr.length + ' games. And the most played hand was ' + arr.length !==
+		// 			'undefined' && arr[0][1].played
+		// 	);
 
 		setSelections([]);
 		return arr;
