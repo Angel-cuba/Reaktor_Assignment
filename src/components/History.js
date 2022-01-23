@@ -6,15 +6,11 @@ const History = ({ allData }) => {
 
 	const [listA, setListA] = useState([]);
 	const [listB, setListB] = useState([]);
-
 	const [amount, setAmount] = useState();
-	console.log(amount);
 	const [amountLength, setAmountLength] = useState([]);
 	const [playersWon, setPlayersWon] = useState([]);
-	console.log(playersWon);
-
 	const [fullArray, setFullArray] = useState([]);
-	console.log(fullArray);
+
 	useEffect(() => {
 		myArrayA();
 		myArrayB();
@@ -30,12 +26,6 @@ const History = ({ allData }) => {
 		...allData.map((value) => value.playerB.name),
 	];
 
-	const fullArrayNamesAndPlays = [
-		...allData.map((value) => value.playerA),
-		...allData.map((value) => value.playerB),
-	];
-	console.log(fullArrayNamesAndPlays);
-
 	useLayoutEffect(() => {
 		AmountList();
 		setLengthValue();
@@ -49,7 +39,6 @@ const History = ({ allData }) => {
 			if (!acc[item]) {
 				acc[item] = [];
 			}
-			// console.log(item);
 			acc[item].push(item);
 			// acc[item] = acc[item] + 1 || 1;
 			setAmount(acc);
@@ -115,7 +104,6 @@ const History = ({ allData }) => {
 					]);
 					//console.log('Gana a con paper');
 				}
-
 				//empate
 				if (
 					allData[a].playerA.played === allData[b].playerB.played ||
@@ -147,7 +135,6 @@ const History = ({ allData }) => {
 					]);
 					// console.log('gana b con tijera');
 				}
-
 				//De B vs A (papel gana a piedra)
 				if (allData[a].playerA.played === 'ROCK' && allData[b].playerB.played === 'PAPER') {
 					setPlayersWon([
@@ -184,7 +171,6 @@ const History = ({ allData }) => {
 
 		for (count; count < playersWon.length; count++) {
 			if (playersWon[count].name === value) {
-				console.log(playersWon[count]);
 				// arr.push([...selections, playersWon[count].name, playersWon[count] && playersWon[count]]);
 				if (playersWon[count].played === 'ROCK') {
 					arr.push([
@@ -209,7 +195,6 @@ const History = ({ allData }) => {
 				}
 			}
 		}
-		// console.log(arr);
 		arr && arr.length
 			? alert('Has won ' + arr.length + ' games. And the most played hand is ' + arr[0][1])
 			: alert('No victories. Nothing to show for this player.');

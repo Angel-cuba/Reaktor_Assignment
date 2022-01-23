@@ -2,7 +2,6 @@ import React from 'react';
 import { useStyles } from './styles';
 
 const Games = ({ play }) => {
-	// console.log('click');
 	const classes = useStyles();
 
 	return (
